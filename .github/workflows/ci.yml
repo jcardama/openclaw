@@ -20,6 +20,10 @@ on:
         description: "Result of Windows checks"
         value: ${{ jobs.checks-windows.result }}
 
+concurrency:
+  group: ci-${{ github.workflow }}-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
+
 jobs:
   install-check:
     runs-on: blacksmith-4vcpu-ubuntu-2404
